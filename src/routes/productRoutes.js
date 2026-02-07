@@ -1,24 +1,35 @@
 // Vamos a crear las rutas CRUD para los productos.
 // Las rutas deberían tener una estructura similar a esta:
 
-//!- GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
-
-//- GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
-
 const express = require("express");
 const productRouter = express.Router();
 const Product = require("../models/Product");
 const newProductTemplate = require("../templates/newProduct");
+const editProduct = require("../helpers/editProduct");
 
 //ruta principal
 productRouter.get("/", (req, res) => {
   res.send("Product router funciona");
 });
 
+//!- GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
+
+// productRouter.get("/dashboard",(req,res)=>{
+
+// });
+
 //- GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 
 productRouter.get("/dashboard/new", (req, res) => {
   res.send(newProductTemplate);
+});
+
+//- GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+
+productRouter.get("/dashboard/:productId/edit", async (req, res) => {
+  const { productId } = req.params;
+  const html = editProduct(productId);
+  res.send(html);
 });
 
 // - GET /products:
@@ -92,6 +103,7 @@ productRouter.get("/dashboard/:id", async (req, res) => {
 //- PUT /dashboard/:productId: Actualiza un producto.
 productRouter.put("/dashboard/:productId", async (req, res) => {
   const { productId } = req.params;
+  console.log("PUT", productId);
   const { nombre, descripcion, imagen, categoria, talla, precio } = req.body;
 
   try {

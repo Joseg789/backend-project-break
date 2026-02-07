@@ -1,9 +1,18 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
+const methodOverride = require("method-override");
+const app = express();
+
 const { dbConnection } = require("./config/db");
 dotenv.config(); //!para que lea las variables de entorno
-const app = express();
 const productRouter = require("./routes/productRoutes");
+app.use(
+  helmet({
+    contentSecurityPolicy: false, //para hacer el put con el form
+  }),
+);
+app.use(methodOverride("_method")); // leerá ?_method=PUT/DELETE
 dbConnection();
 app.use(express.json());
 app.use(express.urlencoded());
