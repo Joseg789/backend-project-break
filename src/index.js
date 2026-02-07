@@ -6,6 +6,7 @@ const app = express();
 const productRouter = require("./routes/productRoutes");
 dbConnection();
 app.use(express.json());
+app.use(express.urlencoded());
 app.use("/", productRouter);
 
 app.listen(process.env.PORT || 4000, () => {
