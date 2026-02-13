@@ -1,26 +1,27 @@
 const express = require("express");
 const productRouter = express.Router();
 const productController = require("../controllers/productController");
+const baseHtml = require("../helpers/baseHtml");
+const Product = require("../models/Product");
 
-//ruta principal
-productRouter.get("/", (req, res) => {
-  res.send("Product router funciona");
+//ruta principal products
+productRouter.get("/", async (req, res) => {
+  const products = await Product.find();
+  const categorias = await Product.distinct("categoria");
+  res.send(baseHtml(products, categorias));
 });
 
 productRouter.get("/dashboard", productController.getProductsDashboard);
 
-//- GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
-
 productRouter.get("/dashboard/new", productController.getNewProductDashboard);
-
-//- GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 
 productRouter.get(
   "/dashboard/:productId/edit",
   productController.editProductDashboard,
 );
 
-// - DELETE /dashboard/:productId/delete: Elimina un producto.
+//mostar productos por categorias
+productRouter.get("/:categoria", productController.getProductsByCategories);
 
 productRouter.get(
   "/dashboard/:productId/delete",

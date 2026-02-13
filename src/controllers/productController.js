@@ -112,12 +112,20 @@ const productController = {
         return res.status(404).json({ error: "Product not found" });
       }
 
-      res.redirect("/dashboard");
+      return res.redirect("/dashboard");
       //res.json(newProduct);
     } catch (error) {
       console.error(error.message);
       res.status(500).json(error);
     }
+  },
+  getProductsByCategories: async (req, res) => {
+    let { categoria } = req.params;
+    categoria = categoria[0].toUpperCase() + categoria.slice(1); //
+    const productsByCategory = await Product.find({ categoria });
+
+    const dashboardHtml = dashboard(productsByCategory);
+    return res.send(dashboardHtml);
   },
 
   deleteProductDashboard: async (req, res) => {
