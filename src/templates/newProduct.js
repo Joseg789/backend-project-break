@@ -8,7 +8,7 @@ const newProductTemplate = `
       <body>
         <h1>Nuevo producto</h1>
 
-        <form action="/dashboard" method="POST">
+         <form action="/dashboard" method="POST" enctype="multipart/form-data">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" name="nombre" required>
 
@@ -25,7 +25,7 @@ const newProductTemplate = `
           <input type="text" id="descripcion" name="descripcion" required>
 
           <label for="imagen">Url de la Imagen </label>
-          <input type="text" id="imagen" name="imagen" required>
+          <input type="file" id="image" name="image" required>
 
           <button type="submit">Guardar</button>
         </form>

@@ -53,7 +53,7 @@ const authController = {
     req.session.isAdmin = false;
     console.log("logged user " + user.email);
 
-    return res.redirect("/dashboard");
+    return res.redirect("/");
   },
 };
 

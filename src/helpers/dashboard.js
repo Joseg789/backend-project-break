@@ -1,4 +1,5 @@
 const getProductCards = require("./productCards");
+const getNavBar = require("./getNavBar");
 
 const dashboard = (products) => {
   const html = `
@@ -17,6 +18,7 @@ const dashboard = (products) => {
       </head>
       <body>
         <h1>Productos</h1>
+          ${getNavBar(true)}
         ${getProductCards(products)}
       </body>
     </html>

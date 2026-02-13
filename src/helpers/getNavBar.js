@@ -1,4 +1,4 @@
-const getNavBar = () => `
+const getNavBar = (admin) => `
 
     <nav>
         <ul>
@@ -8,6 +8,7 @@ const getNavBar = () => `
         <li><a href="/zapatos">Zapatos</a></li>
         <li><a href="/accesorios">Accesorios</a></li>
         <li><a href="/login">Login</a></li>
+        ${admin ? `<li><a href="/dashboard/new">Crear Un Producto</a></li>` : ""}
         </ul>
     </nav>
     `;

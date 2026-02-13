@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config(); //!para que lea las variables de entorno
+
 const helmet = require("helmet");
 const methodOverride = require("method-override");
 const app = express();
@@ -7,7 +9,6 @@ const productRouter = require("./routes/productRoutes");
 const session = require("express-session");
 
 const { dbConnection } = require("./config/db");
-dotenv.config(); //!para que lea las variables de entorno
 app.use(
   helmet({
     contentSecurityPolicy: false, //para hacer el put con el form

@@ -42,13 +42,14 @@ const productController = {
       return res.status(500).json(error);
     }
   },
+
   createProductDashboard: async (req, res) => {
-    const { nombre, descripcion, imagen, categoria, talla, precio } = req.body;
+    const { nombre, descripcion, categoria, talla, precio } = req.body;
     try {
       const newProduct = await Product.create({
         nombre,
         descripcion,
-        imagen,
+        imagen: req.file.path,
         categoria,
         talla,
         precio,
