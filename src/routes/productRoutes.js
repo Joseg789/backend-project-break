@@ -3,6 +3,7 @@ const productRouter = express.Router();
 const productController = require("../controllers/productController");
 const baseHtml = require("../helpers/baseHtml");
 const Product = require("../models/Product");
+const authController = require("../controllers/authController");
 
 //ruta principal products
 productRouter.get("/", async (req, res) => {
@@ -19,9 +20,15 @@ productRouter.get(
   "/dashboard/:productId/edit",
   productController.editProductDashboard,
 );
+//login
+productRouter.get("/login", authController.getLoginForm);
+productRouter.post("/login", authController.login);
 
-//mostar productos por categorias
-productRouter.get("/:categoria", productController.getProductsByCategories);
+//crear usuario
+
+productRouter.get("/crearusuario", authController.getCreateUserForm);
+
+productRouter.post("/crearusuario", authController.createUser);
 
 productRouter.get(
   "/dashboard/:productId/delete",
@@ -53,5 +60,8 @@ productRouter.delete(
   "/dashboard/delete/:productId",
   productController.deleteProductDashboard,
 );
+
+//mostar productos por categorias
+productRouter.get("/:categoria", productController.getProductsByCategories);
 
 module.exports = productRouter;
