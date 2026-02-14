@@ -33,7 +33,7 @@ const productController = {
     try {
       // .select("-_id");
       const products = await Product.find();
-      if (!products) {
+      if (products.length === 0) {
         return res.status(404).json({ error: "Products Not Found" });
       }
       res.json(products);
@@ -49,7 +49,7 @@ const productController = {
       const newProduct = await Product.create({
         nombre,
         descripcion,
-        imagen: req.file.path,
+        imagen: req.file ? req.file.path : null,
         categoria,
         talla,
         precio,
@@ -92,7 +92,7 @@ const productController = {
   },
   updateProductDashboard: async (req, res) => {
     const { productId } = req.params;
-    const { nombre, descripcion, imagen, categoria, talla, precio } = req.body;
+    const { nombre, descripcion, categoria, talla, precio } = req.body;
 
     try {
       const newProduct = await Product.findByIdAndUpdate(
@@ -100,7 +100,7 @@ const productController = {
         {
           nombre,
           descripcion,
-          imagen,
+          imagen: req.file ? req.file.path : null,
           categoria,
           talla,
           precio,

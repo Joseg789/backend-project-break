@@ -1,9 +1,9 @@
 const productDetail = require("./productDetails");
 
-function getProductCards(products) {
+function getProductCards(products, admin) {
   let html = "";
   for (let product of products) {
-    html += productDetail(product);
+    html += productDetail(product, admin);
   }
   return html;
 }

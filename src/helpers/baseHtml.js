@@ -14,7 +14,7 @@ const baseHtml = (products, categorias) => {
       ${getNavBar(false)}
       </header>
         <h1>Productos</h1>
-        ${getProductCards(products)}
+        ${getProductCards(products, false)}
       </body>
     </html>
   `;

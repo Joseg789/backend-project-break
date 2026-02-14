@@ -28,6 +28,7 @@ app.use(
   }),
 );
 app.use("/", productRouter);
+//use 404
 
 app.listen(process.env.PORT || 4000, () => {
   console.log(`server listen in http://localhost:${process.env.PORT || 4000}`);

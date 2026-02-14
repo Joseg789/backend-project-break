@@ -19,7 +19,7 @@ const dashboard = (products) => {
       <body>
         <h1>Productos</h1>
           ${getNavBar(true)}
-        ${getProductCards(products)}
+        ${getProductCards(products, true)}
       </body>
     </html>
   `;

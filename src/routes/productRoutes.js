@@ -67,6 +67,8 @@ productRouter.get("/dashboard/:id", auth, productController.getProductDetail);
 productRouter.put(
   "/dashboard/:productId",
   auth,
+  upload.single("image"),
+
   productController.updateProductDashboard,
 );
 //elimina un producto

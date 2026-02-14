@@ -15,7 +15,7 @@ const deleteProduct = (product) => {
         <title>Editar Productos</title>
       </head>
       <body>
-        ${productDetail(product)}
+        ${productDetail(product, true)}
        
         <form action="/dashboard/delete/${product._id}?_method=DELETE" method="POST">
 

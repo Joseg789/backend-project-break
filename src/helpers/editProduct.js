@@ -16,8 +16,7 @@ const editProduct = (productId) => {
       </head>
       <body>
         <h1>Editar Producto</h1>
-
-        <form action="/dashboard/${productId}?_method=PUT" method="POST">
+        <form action="/dashboard/${productId}?_method=PUT" method="POST" enctype="multipart/form-data">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" name="nombre" required>
 
@@ -33,8 +32,8 @@ const editProduct = (productId) => {
           <label for="descripcion">descripcion</label>
           <input type="text" id="descripcion" name="descripcion" required>
 
-          <label for="imagen">Url de la Imagen </label>
-          <input type="text" id="imagen" name="imagen" required>
+          <label for="image">Url de la Imagen </label>
+          <input type="file" id="image" name="image" required>
 
           <button type="submit">Guardar</button>
         </form>
