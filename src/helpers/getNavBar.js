@@ -1,16 +1,41 @@
 const getNavBar = (admin) => `
+  <nav class="navbar">
 
-    <nav>
-        <ul>
-        <li><a href="/#">Productos</a></li>
-        <li><a href="/camisetas">Camisetas</a></li>
-        <li><a href="/pantalones">Pantalones</a></li>
-        <li><a href="/zapatos">Zapatos</a></li>
-        <li><a href="/accesorios">Accesorios</a></li>
-        <li><a href="/login">Login</a></li>
-        ${admin ? `<li><a href="/dashboard/new">Crear Un Producto</a></li>` : ""}
-        </ul>
-    </nav>
-    `;
+    <a class="links" href="/" >MiTienda</a>
+
+    <div class="navbar-links">
+      ${
+        admin
+          ? `<a class="links" href="/dashboard">Productos</a> 
+             <a class="links" href="/dashboard/categoria/camisetas">Camisetas</a>
+             <a class="links" href="/dashboard/categoria/pantalones">Pantalones</a>
+             <a class="links" href="/dashboard/categoria/zapatos">Zapatos</a>
+             <a class="links" href="/dashboard/categoria/accesorios">Accesorios</a>
+             <a class="links" href="/dashboard/new" class="navbar-btn">Crear Producto</a>
+             <a class="links"  href="/dashboard">Admin</a>
+           
+             `
+          : `<a class="links" href="/#">Productos</a>
+             <a class="links" href="/camisetas">Camisetas</a>
+             <a class="links" href="/pantalones">Pantalones</a>
+             <a class="links" href="/zapatos">Zapatos</a>
+             <a class="links" href="/accesorios">Accesorios</a>`
+      }
+      
+    </div>
+
+    <div class="navbar-actions">
+    ${
+      admin
+        ? ` <form action="/logout" method="POST">
+             <input type="submit" class="links btn-logout" value="Logout"  >
+            </form>  `
+        : ` <a class="links" href="/login">Login</a>`
+    }
+      
+    </div>
+
+  </nav>
+`;
 
 module.exports = getNavBar;

@@ -20,13 +20,15 @@
   },
   "homepage": "https://github.com/Joseg789/backend-project-break#readme",
   "dependencies": {
-    "cloudinary": "^2.9.0",
+    "cloudinary": "^1.41.0",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "helmet": "^8.1.0",
     "method-override": "^3.0.0",
-    "mongoose": "^9.1.6"
+    "mongoose": "^9.1.6",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0"
   },
   "devDependencies": {
     "jest": "^30.2.0",

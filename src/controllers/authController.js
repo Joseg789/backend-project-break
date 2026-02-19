@@ -1,6 +1,9 @@
 const loginForm = require("../helpers/login");
 const crearUsuario = require("../helpers/crearUsuario");
 const User = require("../models/User");
+const dashboard = require("../helpers/dashboard");
+const Product = require("../models/Product");
+const showAlert = require("../helpers/showAlertError");
 
 const authController = {
   getLoginForm: (req, res) => {
@@ -25,6 +28,7 @@ const authController = {
       return res.status(500).send(error.message);
     }
   },
+  //post/login
   login: async (req, res) => {
     const { email, password } = req.body;
 
@@ -41,19 +45,29 @@ const authController = {
     const user = await User.findOne({ email });
     if (!user) {
       req.session.isLogged = false;
-      return res.status(401).send("usuario  o clave incorrecto");
+      return res.status(401).send(showAlert(["usuario  o clave incorrecto"]));
     }
     //verificamos password
     if (user.password !== password) {
       req.session.isLogged = false;
 
-      return res.status(401).send("usuario  o clave incorrecto");
+      return res.status(401).send(showAlert(["usuario  o clave incorrecto"]));
     }
+    //inicia sesion usuario
     req.session.isLogged = true;
     req.session.isAdmin = false;
+    req.user = user.email;
     console.log("logged user " + user.email);
 
     return res.redirect("/");
+  },
+  getProductsByCategories: async (req, res) => {
+    let { categoria } = req.params;
+    categoria = categoria[0].toUpperCase() + categoria.slice(1); //capitalize
+    const productsByCategory = await Product.find({ categoria });
+
+    const dashboardHtml = dashboard(productsByCategory);
+    return res.send(dashboardHtml);
   },
 };
 

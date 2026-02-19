@@ -6,12 +6,12 @@ const Product = require("../models/Product");
 const authController = require("../controllers/authController");
 const auth = require("../middlewares/authMiddleware");
 const upload = require("../middlewares/uploadCloudinaryMiddleware");
+const showAlert = require("../helpers/showAlertError");
 
 //ruta principal products
 productRouter.get("/", async (req, res) => {
   const products = await Product.find();
-  const categorias = await Product.distinct("categoria");
-  res.send(baseHtml(products, categorias));
+  res.send(baseHtml(products, "home"));
 });
 
 productRouter.get("/dashboard", auth, productController.getProductsDashboard);
@@ -80,5 +80,30 @@ productRouter.delete(
 
 //mostar productos por categorias
 productRouter.get("/:categoria", productController.getProductsByCategories);
+
+productRouter.get(
+  "/dashboard/categoria/:categoria",
+  auth,
+  authController.getProductsByCategories,
+);
+
+// Ruta de logout
+productRouter.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      return res.send(
+        showAlert(["No se pudo cerrar la sesión, intenta de nuevo."]),
+      );
+    }
+
+    res.clearCookie("connect.sid");
+    return res.redirect("/");
+  });
+});
+
+// productRouter.get("/error", (req, res) => {
+//   const html = showAlert();
+// });
 
 module.exports = productRouter;

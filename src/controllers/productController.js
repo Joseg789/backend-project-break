@@ -1,8 +1,11 @@
 const Product = require("../models/Product");
 const dashboard = require("../helpers/dashboard");
-const newProductTemplate = require("../templates/newProduct");
+const newProductTemplate = require("../helpers/newProduct");
 const editProduct = require("../helpers/editProduct");
 const deleteProduct = require("../helpers/deleteProduct");
+const baseHtml = require("../helpers/baseHtml");
+const validateErrors = require("../utils/validateErrors");
+const showAlert = require("../helpers/showAlertError");
 
 const productController = {
   getProductsDashboard: async (req, res) => {
@@ -20,7 +23,8 @@ const productController = {
 
   editProductDashboard: async (req, res) => {
     const { productId } = req.params;
-    const html = editProduct(productId);
+    const product = await Product.findById(productId);
+    const html = editProduct(product);
     res.send(html);
   },
   getFormDeleteProduct: async (req, res) => {
@@ -45,20 +49,37 @@ const productController = {
 
   createProductDashboard: async (req, res) => {
     const { nombre, descripcion, categoria, talla, precio } = req.body;
+
+    const errors = validateErrors(req);
+    if (errors.length > 0) {
+      const html = showAlert(errors);
+      return res.send(html);
+    }
+
     try {
       const newProduct = await Product.create({
         nombre,
         descripcion,
-        imagen: req.file ? req.file.path : null,
+        imagen: req.file ? req.file.path : undefined,
         categoria,
         talla,
         precio,
       });
+
       console.log(newProduct);
       return res.redirect("/dashboard");
-    } catch (error) {
-      console.error(error.messsage);
-      return res.status(500).json(error);
+    } catch (err) {
+      if (err.name === "ValidationError") {
+        // Convertir a arreglo de mensajes
+        const erroresArray = Object.values(err.errors).map((e) => e.message);
+
+        // Por ejemplo:
+        // ['Path `nombre` is required.', 'Path `precio` is required.']
+        return res.send(showAlert(erroresArray));
+      } else {
+        // Otros errores
+        return res.status(500).send(showAlert(["Error del servidor"]));
+      }
     }
   },
 
@@ -100,7 +121,7 @@ const productController = {
         {
           nombre,
           descripcion,
-          imagen: req.file ? req.file.path : null,
+          imagen: req.file ? req.file.path : undefined,
           categoria,
           talla,
           precio,
@@ -122,10 +143,10 @@ const productController = {
   },
   getProductsByCategories: async (req, res) => {
     let { categoria } = req.params;
-    categoria = categoria[0].toUpperCase() + categoria.slice(1); //
+    categoria = categoria[0].toUpperCase() + categoria.slice(1); //capitalize
     const productsByCategory = await Product.find({ categoria });
 
-    const dashboardHtml = dashboard(productsByCategory);
+    const dashboardHtml = baseHtml(productsByCategory);
     return res.send(dashboardHtml);
   },
 

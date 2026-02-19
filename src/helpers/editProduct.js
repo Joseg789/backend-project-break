@@ -1,44 +1,86 @@
-const editProduct = (productId) => {
+const getNavBar = require("./getNavBar");
+
+const editProduct = (product) => {
   const html = `
     <!DOCTYPE html>
     <html lang="es">
       <head>
-       <meta charset="UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-        connect-src 'self' http://localhost:4000;
-        img-src 'self' data: http:;
-        style-src 'self' 'unsafe-inline';
-        form-action 'self';">
+          content="default-src 'self';
+          connect-src 'self' http://localhost:4000;
+          img-src 'self' data: http:;
+          style-src 'self' 'unsafe-inline';
+          form-action 'self';">
 
-        <title>Editar Productos</title>
+        <title>Editar Producto</title>
+        <link rel="stylesheet" href="/css/styles.css" />
       </head>
-      <body>
-        <h1>Editar Producto</h1>
-        <form action="/dashboard/${productId}?_method=PUT" method="POST" enctype="multipart/form-data">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" required>
 
-          <label for="precio">Precio (€)</label>
-          <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+      <body class="admin">
 
-          <label for="categoria">Categoria </label>
-          <input type="text" id="categoria" name="categoria" required placeholder="Ejemplo: Camisetas, Pantalones,Zapatos,Accesorios ">
+        <header>
+          ${getNavBar(true)}
+        </header>
 
-          <label for="talla">Talla </label>
-          <input type="text" id="talla" name="talla" required placeholder="Ejemplo: XS S M L XL ">
+        <main class="container">
+          <h1 class="page-title">Editar Producto</h1>
 
-          <label for="descripcion">descripcion</label>
-          <input type="text" id="descripcion" name="descripcion" required>
+          <form 
+            class="form-container"
+            action="/dashboard/${product._id}?_method=PUT" 
+            method="POST" 
+            enctype="multipart/form-data"
+          >
 
-          <label for="image">Url de la Imagen </label>
-          <input type="file" id="image" name="image" required>
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" name="nombre" value="${product.nombre}" required>
+            </div>
 
-          <button type="submit">Guardar</button>
-        </form>
+            <div class="form-group">
+              <label>Precio (€)</label>
+              <input type="number" name="precio" value="${product.precio}" min="0" step="0.01" required>
+            </div>
 
-        <p><a href="/dashboard">← Volver al dashboard</a></p>
+            <div class="form-group">
+              <label>Categoría</label>
+              <input type="text" name="categoria" value="${product.categoria}" required>
+            </div>
+
+            <div class="form-group">
+              <label>Talla</label>
+              <input type="text" name="talla" value="${product.talla}" required>
+            </div>
+
+            <div class="form-group">
+              <label>Descripción</label>
+              <textarea name="descripcion" rows="3" required>${product.descripcion}</textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Imagen actual</label>
+              <img class="preview-img" src="${product.imagen}">
+            </div>
+
+            <div class="form-group">
+              <label>Nueva imagen (opcional)</label>
+              <input type="file" name="image">
+            </div>
+
+            <button type="submit" class="form-btn btn-edit">
+              Guardar cambios
+            </button>
+
+            <a class="links" href="/dashboard" >
+              Cancelar
+            </a>
+
+          </form>
+        </main>
+
       </body>
     </html>
   `;

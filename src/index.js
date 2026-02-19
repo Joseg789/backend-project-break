@@ -17,7 +17,11 @@ app.use(
 app.use(methodOverride("_method")); // leerá ?_method=PUT/DELETE
 dbConnection();
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
 
 app.use(
   session({
@@ -27,6 +31,7 @@ app.use(
     saveUninitialized: false,
   }),
 );
+app.use(express.static("public"));
 app.use("/", productRouter);
 //use 404
 
