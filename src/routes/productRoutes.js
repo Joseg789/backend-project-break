@@ -106,4 +106,6 @@ productRouter.post("/logout", (req, res) => {
 //   const html = showAlert();
 // });
 
+// middleware global de errores
+
 module.exports = productRouter;

@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const app = express();
 const productRouter = require("./routes/productRoutes");
 const session = require("express-session");
+const errorHandler = require("./middlewares/errorHandler");
 
 const { dbConnection } = require("./config/db");
 app.use(
@@ -33,8 +34,9 @@ app.use(
 );
 app.use(express.static("public"));
 app.use("/", productRouter);
-//use 404
 
+//middleware para errores
+app.use(errorHandler);
 app.listen(process.env.PORT || 4000, () => {
   console.log(`server listen in http://localhost:${process.env.PORT || 4000}`);
 });

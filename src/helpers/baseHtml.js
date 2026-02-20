@@ -28,8 +28,13 @@ const baseHtml = (products, view = "") => {
             }
           </h1>
 
+        
           <div class="container-products">
-            ${getProductCards(products, false)}
+            ${
+              products.length
+                ? getProductCards(products, false)
+                : "<h2>No hay productos creados.</h2>"
+            }
           </div>
         </main>
 
