@@ -10,6 +10,7 @@ const session = require("express-session");
 const errorHandler = require("./middlewares/errorHandler");
 
 const { dbConnection } = require("./config/db");
+const showAlert = require("./helpers/showAlertError");
 app.use(
   helmet({
     contentSecurityPolicy: false, //para hacer el put con el form
@@ -34,9 +35,14 @@ app.use(
 );
 app.use(express.static("public"));
 app.use("/", productRouter);
-
+//rutas no existenntes
+app.use((req, res, next) => {
+  res.status(404).send(showAlert(["Pagina no encontrada"]));
+});
 //middleware para errores
 app.use(errorHandler);
 app.listen(process.env.PORT || 4000, () => {
   console.log(`server listen in http://localhost:${process.env.PORT || 4000}`);
 });
+
+module.exports = app;

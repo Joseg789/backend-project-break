@@ -79,7 +79,10 @@ productRouter.delete(
 );
 
 //mostar productos por categorias
-productRouter.get("/:categoria", productController.getProductsByCategories);
+productRouter.get(
+  "/categoria/:categoria",
+  productController.getProductsByCategories,
+);
 
 productRouter.get(
   "/dashboard/categoria/:categoria",

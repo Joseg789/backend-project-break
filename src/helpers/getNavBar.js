@@ -1,7 +1,10 @@
 const getNavBar = (admin) => `
   <nav class="navbar">
-
-    <a class="links" href="/" >MiTienda</a>
+${
+  admin
+    ? `<a class="links" href="/dashboard" >MiTienda</a>`
+    : `<a class="links" href="/" >MiTienda</a>`
+}
 
     <div class="navbar-links">
       ${
@@ -16,10 +19,10 @@ const getNavBar = (admin) => `
            
              `
           : `<a class="links" href="/#">Productos</a>
-             <a class="links" href="/camisetas">Camisetas</a>
-             <a class="links" href="/pantalones">Pantalones</a>
-             <a class="links" href="/zapatos">Zapatos</a>
-             <a class="links" href="/accesorios">Accesorios</a>`
+             <a class="links" href="/categoria/camisetas">Camisetas</a>
+             <a class="links" href="/categoria/pantalones">Pantalones</a>
+             <a class="links" href="/categoria/zapatos">Zapatos</a>
+             <a class="links" href="/categoria/accesorios">Accesorios</a>`
       }
       
     </div>

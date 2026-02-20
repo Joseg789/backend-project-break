@@ -12,9 +12,7 @@ const baseHtml = (products, view = "") => {
         <link rel="stylesheet" href="/css/styles.css" />
         <title>Tienda de Productos</title>
       </head>
-
       <body>
-
         <header>
           ${getNavBar(false)}
         </header>
@@ -27,9 +25,7 @@ const baseHtml = (products, view = "") => {
                 : "Todos los productos"
             }
           </h1>
-
-        
-          <div class="container-products">
+            <div class="container-products">
             ${
               products.length
                 ? getProductCards(products, false)
@@ -37,7 +33,6 @@ const baseHtml = (products, view = "") => {
             }
           </div>
         </main>
-
       </body>
     </html>
   `;

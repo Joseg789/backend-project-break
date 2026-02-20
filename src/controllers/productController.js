@@ -127,13 +127,13 @@ const productController = {
           precio,
         },
         {
-          new: true, //para que traiga el documento actualizado
+          returnDocument: "after", //para que traiga el documento actualizado
         },
       );
       if (!newProduct) {
         return res.status(404).json({ error: "Product not found" });
       }
-
+      console.log(newProduct);
       return res.redirect("/dashboard");
       //res.json(newProduct);
     } catch (error) {
