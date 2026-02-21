@@ -34,7 +34,6 @@ const deleteProduct = (product) => {
           <div class="delete-wrapper">
 
             ${productDetail(product, true, "delete")}
-
             <form 
               class="form-delete"
               action="/dashboard/delete/${product._id}?_method=DELETE" 

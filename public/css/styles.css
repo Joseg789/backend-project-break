@@ -1,4 +1,4 @@
-/* ====== RESET BÁSICO ====== */
+/* ====== RESET ====== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,129 +7,128 @@
 
 /* ====== BODY ====== */
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background: #f5f6fa;
-  color: #222;
+  background: #fff;
   line-height: 1.5;
   padding: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #111;
 }
 
-/* ====== CONTENEDOR GENERAL ====== */
+/* ====== CONTENEDOR ====== */
 .container {
   max-width: 1200px;
   margin: auto;
 }
+
 .container-products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 400px));
-  gap: 24px;
+  grid-template-columns: repeat(4, 300px);
+  gap: 28px;
 }
 
-/* ====== CARD DE PRODUCTO ====== */
+/* ====== PRODUCT CARD ====== */
 .product-card {
   display: flex;
   flex-direction: column;
   background: #fff;
-  border-radius: 14px;
+  border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
-/* Imagen */
 .product-card img {
   width: 100%;
-  height: 220px;
   object-fit: cover;
+  aspect-ratio: 3/4;
+  transition: opacity 0.25s ease;
 }
 
-/* Contenido */
-.card-body {
+.product-card:hover img {
+  opacity: 0.92;
+}
+
+.delete-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  text-align: center;
+  max-width: 400px;
+  margin: 40px auto;
+  background: white;
+  padding: 28px;
+}
+/* ====== CARD BODY ====== */
+.card-body {
+  padding: 14px 4px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 /* Categoría */
 .card-categoria {
-  font-size: 12px;
-  font-weight: 600;
-  color: #888;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #777;
   text-transform: uppercase;
 }
 
 /* Nombre */
 .card-nombre {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /* Descripción */
 .card-descripcion {
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
-  font-weight: 500;
 }
 
 /* Talla */
 .card-talla {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
   color: #444;
 }
 
 /* Precio */
 .card-precio {
-  font-size: 20px;
-  font-weight: bold;
-  color: #111;
-  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 400;
 }
 
-/* Botón */
+/* Botón estilo Zara */
 .card-btn {
-  margin-top: 12px;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #111;
-  color: white;
-  font-weight: 600;
+  margin-top: 10px;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid #ddd;
+  color: #111;
+  font-size: 12px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 .card-btn:hover {
-  background: #333;
+  border-color: #111;
 }
 
-/* ====== FORMULARIOS (crear/editar/eliminar/login) ====== */
+/* ====== FORMULARIOS ====== */
 .form-container {
   max-width: 420px;
   margin: 40px auto;
   background: white;
   padding: 28px;
-  border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  border: 1px solid #eee;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
 .form-title {
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
   text-align: center;
-  margin-bottom: 10px;
 }
 
-/* Inputs */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -137,119 +136,89 @@ body {
 }
 
 .form-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #444;
+  font-size: 12px;
+  letter-spacing: 0.04em;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-  padding: 12px;
-  border-radius: 8px;
+  padding: 10px;
   border: 1px solid #ddd;
-  font-size: 14px;
-  transition:
-    border 0.2s,
-    box-shadow 0.2s;
+  font-size: 13px;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border: 1px solid #111;
+  border-color: #111;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 /* Botones */
 .form-btn {
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/* Botón principal */
-.btn-primary {
+  padding: 10px;
+  border: 1px solid #111;
   background: #111;
   color: white;
+  font-size: 13px;
+  cursor: pointer;
 }
 
-.btn-primary:hover {
+.form-btn:hover {
   background: #333;
 }
 
-/* Botón editar */
-.btn-edit {
-  background: #424344;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
+/* Admin actions */
+.card-admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
 }
 
-.btn-edit:hover {
-  background: #1f63c9;
+.btn-edit,
+.btn-delete {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #111;
+  background: transparent;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+  border-color: #111;
+  color: white;
+  background: #111;
 }
 
 .btn-logout {
   background: none;
   border: none;
   padding: 0;
-  margin: 0;
-  text-decoration: underline;
   cursor: pointer;
   font: inherit;
 }
 
-.card-admin-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-  justify-content: center;
-}
-/* Botón eliminar */
-
-.btn-delete {
-  background: #be554ee1;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.btn-delete:hover {
-  background: #c62828;
-}
-
-/* ====== LOGIN ESPECÍFICO ====== */
+/* ====== LOGIN ====== */
 .login-container {
   max-width: 360px;
   margin: 80px auto;
   background: white;
   padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
 }
 
-.login-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
+/* ====== NAVBAR ====== */
 .navbar {
   width: 100%;
-  background: #ffffff;
-  padding: 14px 40px;
+  background: #fff;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #eee;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -257,45 +226,42 @@ body {
 
 .navbar-links {
   display: flex;
-  gap: 30px;
-  align-items: center;
+  gap: 28px;
 }
 
 .links {
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  font-size: 14px;
+  color: #111;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   position: relative;
-  transition: color 0.2s ease;
 }
 
-.link:hover {
-  color: #000;
-}
-
-/* Línea animada debajo */
+/* underline Zara */
 .links::after {
   content: "";
   position: absolute;
   width: 0%;
-  height: 2px;
+  height: 1px;
   background: #111;
   left: 0;
   bottom: -4px;
-  transition: width 0.3s ease;
+  transition: width 0.25s ease;
 }
 
 .links:hover::after {
   width: 100%;
 }
+
+/* ====== TITLES ====== */
 .page-title {
-  font-size: 32px;
-  margin: 25px 0;
-  font-weight: 700;
-  color: #111;
+  font-size: 26px;
+  margin: 30px 0;
+  font-weight: 500;
 }
 
+/* ====== ALERT ====== */
 .alert-card {
   max-width: 500px;
   margin: 40px auto;
@@ -325,4 +291,22 @@ body {
 .alert-card.error {
   border-left: 6px solid #e53935;
   background: #ffe6e6;
+}
+/* ====== RESPONSIVE  */
+@media (max-width: 1024px) {
+  .container-products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .container-products {
+    grid-template-columns: 1fr;
+  }
 }
