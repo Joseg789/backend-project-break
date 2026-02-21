@@ -14,6 +14,7 @@ const { dbConnection } = require("./config/db");
 const showAlert = require("./helpers/showAlertError");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./docs/swagger");
+const authRouter = require("./routes/authRoutes");
 
 app.use(
   helmet({
@@ -39,6 +40,7 @@ app.use(
 );
 app.use(express.static("public"));
 app.use("/", productRouter);
+app.use("/", authRouter);
 app.use("/api", productApiRouter); //api
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); //documentacion con swagger
 

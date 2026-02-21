@@ -22,7 +22,7 @@ const getNavBar = (admin) => `
              <a class="links"  href="/dashboard">Admin</a>
            
              `
-          : `<a class="links" href="/#">Productos</a>
+          : `<a class="links" href="/">Productos</a>
              <a class="links" href="/categoria/camisetas">Camisetas</a>
              <a class="links" href="/categoria/pantalones">Pantalones</a>
              <a class="links" href="/categoria/zapatos">Zapatos</a>

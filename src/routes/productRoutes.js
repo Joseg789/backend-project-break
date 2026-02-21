@@ -27,15 +27,6 @@ productRouter.get(
   auth,
   productController.editProductDashboard,
 );
-//login
-productRouter.get("/login", authController.getLoginForm);
-productRouter.post("/login", authController.login);
-
-//crear usuario
-
-productRouter.get("/crearusuario", authController.getCreateUserForm);
-
-productRouter.post("/crearusuario", authController.createUser);
 
 productRouter.get(
   "/dashboard/:productId/delete",
@@ -104,11 +95,5 @@ productRouter.post("/logout", (req, res) => {
     return res.redirect("/");
   });
 });
-
-// productRouter.get("/error", (req, res) => {
-//   const html = showAlert();
-// });
-
-// middleware global de errores
 
 module.exports = productRouter;

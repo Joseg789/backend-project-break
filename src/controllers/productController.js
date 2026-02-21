@@ -24,20 +24,27 @@ const productController = {
   },
 
   editProductDashboard: async (req, res) => {
-    const { productId } = req.params;
-    const product = await Product.findById(productId);
-    const html = editProduct(product);
-    res.send(html);
+    try {
+      const { productId } = req.params;
+      const product = await Product.findById(productId);
+      const html = editProduct(product);
+      res.send(html);
+    } catch (error) {
+      return res.status(500).send(showAlert([error.message]));
+    }
   },
   getFormDeleteProduct: async (req, res) => {
-    const { productId } = req.params;
-    const product = await Product.findById(productId);
-    const html = deleteProduct(product);
-    res.send(html);
+    try {
+      const { productId } = req.params;
+      const product = await Product.findById(productId);
+      const html = deleteProduct(product);
+      res.send(html);
+    } catch (error) {
+      return res.status(500).send(showAlert([error.message]));
+    }
   },
   getAllProducts: async (req, res) => {
     try {
-      // .select("-_id");
       const products = await Product.find();
       if (products.length === 0) {
         return res.send(
@@ -47,7 +54,7 @@ const productController = {
       res.json(products);
     } catch (error) {
       console.error(error.message);
-      return res.status(500).json(error);
+      return res.status(500).send(showAlert([error.message]));
     }
   },
 
@@ -62,15 +69,14 @@ const productController = {
 
     try {
       const newProduct = await Product.create({
-        nombre,
-        descripcion,
+        nombre: nombre.toUpperCase(),
+        descripcion: descripcion.toUpperCase(),
         imagen: req.file ? req.file.path : undefined,
-        categoria,
-        talla,
+        categoria, //esta Capitalizada
+        talla: talla.toUpperCase(),
         precio,
       });
 
-      console.log(newProduct);
       return res.redirect("/dashboard");
     } catch (err) {
       if (err.name === "ValidationError") {
@@ -82,7 +88,7 @@ const productController = {
         return res.send(showAlert(erroresArray));
       } else {
         // Otros errores
-        return res.status(500).send(showAlert(["Error del servidor"]));
+        return res.status(500).send(showAlert([err.message]));
       }
     }
   },
@@ -97,7 +103,7 @@ const productController = {
       res.json(product);
     } catch (error) {
       console.error(error.message);
-      res.status(500).json(error);
+      return res.status(500).send(showAlert([error.message]));
     }
   },
   getProductDetail: async (req, res) => {
@@ -111,7 +117,7 @@ const productController = {
       res.json(product);
     } catch (error) {
       console.error(error.message);
-      res.status(500).json(error);
+      return res.status(500).send(showAlert([error.message]));
     }
   },
   updateProductDashboard: async (req, res) => {
@@ -122,11 +128,11 @@ const productController = {
       const newProduct = await Product.findByIdAndUpdate(
         productId,
         {
-          nombre,
-          descripcion,
+          nombre: nombre.toUpperCase(),
+          descripcion: descripcion.toUpperCase(),
           imagen: req.file ? req.file.path : undefined,
-          categoria,
-          talla,
+          categoria, //esta Capitalizada
+          talla: talla.toUpperCase(),
           precio,
         },
         {
@@ -138,8 +144,7 @@ const productController = {
       }
       return res.redirect("/dashboard");
     } catch (error) {
-      console.error(error.message);
-      res.status(500).json(error);
+      return res.status(500).send(showAlert([error.message]));
     }
   },
   getProductsByCategories: async (req, res) => {
@@ -160,7 +165,7 @@ const productController = {
       res.redirect("/dashboard");
     } catch (error) {
       console.error(error.message);
-      res.status(500).json(error);
+      return res.status(500).send(showAlert([error.message]));
     }
   },
 };
