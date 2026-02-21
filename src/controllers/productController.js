@@ -10,8 +10,10 @@ const showAlert = require("../helpers/showAlertError");
 const productController = {
   getProductsDashboard: async (req, res) => {
     const products = await Product.find();
-    if (!products) {
-      return res.json({ message: "Products not found" });
+    if (!products || products.length === 0) {
+      return res.send(
+        showAlert(["No Hay Productos Disponibles o Debe Agregar Productos"]),
+      );
     }
     const dashboardHtml = dashboard(products);
     return res.send(dashboardHtml);
@@ -38,11 +40,13 @@ const productController = {
       // .select("-_id");
       const products = await Product.find();
       if (products.length === 0) {
-        return res.status(404).json({ error: "Products Not Found" });
+        return res.send(
+          showAlert(["No Hay Productos Disponibles o Debe Agregar Productos"]),
+        );
       }
       res.json(products);
     } catch (error) {
-      console.error(error.messsage);
+      console.error(error.message);
       return res.status(500).json(error);
     }
   },
@@ -103,7 +107,6 @@ const productController = {
       if (!product) {
         return res.status(404).json({ error: "Product not found" });
       }
-      //TODO: DEVOLVER HTML DEL PRODUCTO
 
       res.json(product);
     } catch (error) {
@@ -133,9 +136,7 @@ const productController = {
       if (!newProduct) {
         return res.status(404).json({ error: "Product not found" });
       }
-      console.log(newProduct);
       return res.redirect("/dashboard");
-      //res.json(newProduct);
     } catch (error) {
       console.error(error.message);
       res.status(500).json(error);
@@ -145,14 +146,12 @@ const productController = {
     let { categoria } = req.params;
     categoria = categoria[0].toUpperCase() + categoria.slice(1); //capitalize
     const productsByCategory = await Product.find({ categoria });
-
     const dashboardHtml = baseHtml(productsByCategory);
     return res.send(dashboardHtml);
   },
 
   deleteProductDashboard: async (req, res) => {
     const { productId } = req.params;
-
     try {
       const product = await Product.findByIdAndDelete(productId);
       if (!product) {

@@ -1,10 +1,14 @@
 const getNavBar = (admin) => `
   <nav class="navbar">
-${
-  admin
-    ? `<a class="links" href="/dashboard" >MiTienda</a>`
-    : `<a class="links" href="/" >MiTienda</a>`
-}
+  <div>
+  ${
+    admin
+      ? `<a class="links" href="/dashboard" >MiTienda</a>`
+      : `<a class="links" href="/" >MiTienda</a>`
+  }
+  
+  </div>
+
 
     <div class="navbar-links">
       ${
