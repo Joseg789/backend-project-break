@@ -8,7 +8,7 @@ const options = {
       version: "1.0.0",
       description: "API de productos",
     },
-    servers: [{ url: "http://localhost:4000/api" }],
+    servers: [{ url: "https://backend-project-break-acdn.onrender.com/api" }],
 
     components: {
       schemas: {
