@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config(); //!para que lea las variables de entorno
+import cors from "cors";
 
 const helmet = require("helmet");
 const methodOverride = require("method-override");
@@ -17,10 +18,16 @@ const swaggerSpec = require("./docs/swagger");
 const authRouter = require("./routes/authRoutes");
 
 app.use(
+  cors({
+    origin: "*", //permitimos todos los origenes de momento
+  }),
+);
+app.use(
   helmet({
     contentSecurityPolicy: false, //para hacer el put con el form
   }),
 );
+
 app.use(methodOverride("_method")); // leerá ?_method=PUT/DELETE
 dbConnection();
 app.use(express.json());

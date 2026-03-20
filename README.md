@@ -179,3 +179,8 @@ Crear .env
 - Alertas de error
 
 - login y dashboard
+
+### Despliegue
+
+- Desplegado en Render
+- URL: https://backend-project-break-acdn.onrender.com/
