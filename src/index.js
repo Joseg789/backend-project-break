@@ -1,8 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config(); //!para que lea las variables de entorno
-import cors from "cors";
-
+const cors = require("cors");
 const helmet = require("helmet");
 const methodOverride = require("method-override");
 const app = express();
